@@ -2,6 +2,7 @@ package br.unialfa.compra_venda.service;
 
 import br.unialfa.compra_venda.model.Compra;
 import br.unialfa.compra_venda.repository.CompraRepository;
+import jakarta.validation.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,10 +17,18 @@ public class CompraService {
 
     @Transactional
     public void salvar(Compra compra) {
+        try {
+            if (compra.getItens() == null)
+                throw new RuntimeException("Informe ao menos 1 item!");
 
-        compra.getItens().forEach(itemCompra -> itemCompra.setCompra(compra));
+            compra.getItens().forEach(itemCompra -> itemCompra.setCompra(compra));
+            repository.save(compra);
+        } catch (ConstraintViolationException cve) {
 
-        repository.save(compra);
+        } catch (Exception e) {
+            throw e;
+
+        }
     }
 
     public List<Compra> listarTodos() {

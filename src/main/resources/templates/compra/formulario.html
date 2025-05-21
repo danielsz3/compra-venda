@@ -12,7 +12,10 @@
             <input hidden="true" name="id" th:value="${compra.id}" type="text">
 
             <label class="form-label" for="fornecedor">Fornecedor</label>
-            <input class="form-control" id="fornecedor" name="fornecedor" th:value="${compra.fornecedor}" type="text">
+            <input class="form-control"
+                   id="fornecedor" name="fornecedor"
+                   th:value="${compra.fornecedor}"
+                   type="text">
         </div>
 
         <br/>
@@ -21,7 +24,8 @@
                 <thead>
                 <tr>
                     <th>Código</th>
-                    <th>Item</th>
+                    <th>Descrição</th>
+                    <th>Quantidade</th>
                     <th>Valor</th>
                     <th></th>
                 </tr>
@@ -29,17 +33,35 @@
                 <tbody>
                 <tr th:each="item, stat : ${compra.itens}">
                     <td>
-                        <input th:value="${item.id}" th:name="|itens[${stat.index}].id|" type="text" hidden="true">
+                        <input th:value="${item.id}"
+                               th:name="|itens[${stat.index}].id|"
+                               type="text" hidden="true"
+                        >
                         <input th:value="${item.id}" class="form-control" type="text" disabled>
                     </td>
                     <td>
                         <input th:value="${item.descricao}" class="form-control"
                                th:name="|itens[${stat.index}].descricao|" type="text" required>
                     </td>
-                    <td><input th:value="${item.valor}" class="form-control" th:name="|itens[${stat.index}].valor|"
-                               type="text" required></td>
+
                     <td>
-                        <button class="btn btn-outline-dark" formmethod="post" th:formaction="@{'/compra/' + ${stat.index}}"
+                        <input class="form-control"
+                               th:value="${item.quantidade}"
+                               th:name="|itens[${stat.index}].quantidade|"
+                               type="text" required
+                        >
+                    </td>
+
+                    <td>
+                        <input class="form-control"
+                               th:name="|itens[${stat.index}].valor|"
+                               th:value="${item.valor}"
+                               type="text" required
+                        >
+                    </td>
+                    <td>
+                        <button class="btn btn-outline-dark" formmethod="post"
+                                th:formaction="@{'/compra/' + ${stat.index}}"
                                 type="submit">
                             <i class="bi bi-dash-square"></i>
                         </button>
@@ -48,9 +70,14 @@
                 <tr>
                     <td><input class="form-control" type="text" disabled></td>
                     <td><input class="form-control" th:name="descricao" type="text"></td>
+                    <td><input class="form-control" th:name="quantidade" type="text"></td>
                     <td><input class="form-control" th:name="valor" type="text"></td>
                     <td>
-                        <button class="btn btn-outline-dark" formmethod="post" th:formaction="@{/compra}" type="submit">
+                        <button class="btn btn-outline-dark"
+                                formmethod="post"
+                                th:formaction="@{/compra}"
+                                type="submit"
+                        >
                             <i class="bi bi-plus-square"></i>
                         </button>
                 </tr>
@@ -58,7 +85,11 @@
             </table>
         </div>
 
-        <button class="btn btn-dark" formmethod="post" th:formaction="@{/compra/salvar}" type="submit">Salvar</button>
+        <button class="btn btn-dark"
+                formmethod="post"
+                th:formaction="@{/compra/salvar}"
+                type="submit">Salvar
+        </button>
     </form>
 </div>
 <div th:insert="~{index :: script}"></div>

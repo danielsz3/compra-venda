@@ -5,6 +5,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 @Entity
@@ -18,8 +20,13 @@ public class ItemCompra {
     @ManyToOne
     private Compra compra;
 
+    @NotNull(message = "Informe a Quantidade do Item")
     private Integer quantidade;
+
+    @NotNull(message = "Informe o Valor (R$) do Item")
     private Float valor;
+
+    @NotBlank(message = "Informe a Descrição do Item")
     private String descricao;
 
 }

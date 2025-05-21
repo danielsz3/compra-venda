@@ -46,8 +46,9 @@ public class CompraController {
         try {
             service.salvar(compra);
             return "redirect:/compra/listar";
-        } catch (Exception e){
-            System.out.println("Algo de errado não deu certo: " + e.getMessage());
+
+        } catch (Exception e) {
+            model.addAttribute("erro", "Algo de errado não está certo!" + e.getMessage());
             return iniciar(compra, model);
         }
     }
