@@ -20,20 +20,19 @@ public class CompraVendaApplication {
     @Bean
     public CommandLineRunner commandLineRunner(CompraService compraService) {
         return args -> {
-            var itemcompra = new ItemCompra(
+            var itemCompra = new ItemCompra(
                     null,
                     null,
                     10,
                     10F,
                     "Item A"
             );
-
             var compra = new Compra(
                     null,
                     "Fornecedor",
-                    Arrays.asList(itemcompra));
-            compraService.salvar(compra);
+                    Arrays.asList(itemCompra));
 
+            compraService.salvar(compra);
         };
     }
 }

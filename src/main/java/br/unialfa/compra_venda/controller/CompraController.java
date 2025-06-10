@@ -26,18 +26,9 @@ public class CompraController {
     }
 
     @PostMapping()
-    public String inserir(Compra compra, ItemCompra itemCompra, Model model) {
-        itemCompra.setId(null);
-
+    public String inserir(Compra compra, Model model, ItemCompra itemCompra) {
         if (compra.getItens() == null) compra.setItens(Arrays.asList(itemCompra));
         else compra.getItens().add(itemCompra);
-
-        return iniciar(compra, model);
-    }
-
-    @PostMapping("{index}")
-    public String removerItem(@PathVariable int index, Compra compra, Model model) {
-        compra.getItens().remove(index);
         return iniciar(compra, model);
     }
 
@@ -46,10 +37,9 @@ public class CompraController {
         try {
             service.salvar(compra);
             return "redirect:/compra/listar";
-
-        } catch (Exception e) {
-            model.addAttribute("erro", "Algo de errado não está certo!" + e.getMessage());
-            return iniciar(compra, model);
+        } catch (Exception e){
+            model.addAttribute("message","Não consegue Moisés");
+            return iniciar(compra,model);
         }
     }
 
